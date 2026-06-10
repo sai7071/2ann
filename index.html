@@ -1,0 +1,521 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lato:wght@300;400&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  #app {
+    min-height: 600px;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── PAGE 1: LOVE ── */
+  #page-love {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+    background: linear-gradient(135deg, #ffe4ef 0%, #ffd6e7 40%, #ffe9f5 100%);
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bg-hearts {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .bg-heart {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.12;
+    animation: floatUp 8s ease-in infinite;
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(100%) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.12; }
+    90%  { opacity: 0.06; }
+    100% { transform: translateY(-120%) rotate(30deg); opacity: 0; }
+  }
+
+  .love-card {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,150,190,0.4);
+    border-radius: 24px;
+    padding: 48px 44px;
+    text-align: center;
+    max-width: 480px;
+    width: 100%;
+    animation: fadeInUp 1.2s ease both;
+    position: relative;
+    z-index: 1;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .love-emoji {
+    font-size: 56px;
+    display: block;
+    animation: heartBeat 1.4s ease infinite;
+  }
+  @keyframes heartBeat {
+    0%,100% { transform: scale(1); }
+    14%     { transform: scale(1.18); }
+    28%     { transform: scale(1); }
+    42%     { transform: scale(1.12); }
+    70%     { transform: scale(1); }
+  }
+
+  .love-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 38px;
+    color: #c0376e;
+    margin: 16px 0 8px;
+    animation: fadeInUp 1.4s ease both;
+  }
+
+  .love-sub {
+    font-family: 'Dancing Script', cursive;
+    font-size: 22px;
+    color: #e0608e;
+    margin-bottom: 10px;
+    animation: fadeInUp 1.6s ease both;
+  }
+
+  .love-body {
+    font-size: 15px;
+    color: #8a4060;
+    line-height: 1.8;
+    margin-bottom: 32px;
+    animation: fadeInUp 1.8s ease both;
+  }
+
+  .to-password-btn {
+    background: linear-gradient(135deg, #f06292, #e91e8c);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 40px;
+    font-size: 15px;
+    font-family: 'Dancing Script', cursive;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 18px rgba(240,98,146,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeInUp 2s ease both;
+  }
+  .to-password-btn:hover { transform: scale(1.05); box-shadow: 0 6px 24px rgba(240,98,146,0.55); }
+  .to-password-btn:active { transform: scale(0.97); }
+
+  /* ── PAGE 2: PASSWORD ── */
+  #page-password {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #fce4ec 100%);
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pw-card {
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,150,190,0.45);
+    border-radius: 24px;
+    padding: 44px 40px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.8s ease both;
+  }
+
+  .lock-icon { font-size: 48px; display: block; margin-bottom: 12px; }
+
+  .pw-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 30px;
+    color: #b03060;
+    margin-bottom: 6px;
+  }
+
+  .pw-hint {
+    font-size: 13px;
+    color: #c06080;
+    margin-bottom: 24px;
+    line-height: 1.6;
+    padding: 10px 16px;
+    background: rgba(255,200,220,0.4);
+    border-radius: 12px;
+    border: 1px dashed rgba(255,120,170,0.5);
+  }
+
+  .pw-dots {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 2px solid #e879a0;
+    background: transparent;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .dot.filled { background: #e879a0; transform: scale(1.15); }
+
+  .pw-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .key-btn {
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(240,100,150,0.35);
+    border-radius: 14px;
+    padding: 14px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #c0376e;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
+    font-family: 'Lato', sans-serif;
+  }
+  .key-btn:hover { background: rgba(240,100,150,0.15); box-shadow: 0 2px 10px rgba(240,100,150,0.25); }
+  .key-btn:active { transform: scale(0.92); }
+
+  .key-del {
+    background: rgba(255,200,220,0.5);
+    border: 1px solid rgba(240,100,150,0.3);
+    border-radius: 14px;
+    padding: 14px 0;
+    font-size: 18px;
+    color: #c0376e;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.12s;
+    grid-column: span 1;
+  }
+  .key-del:hover { background: rgba(240,100,150,0.2); }
+  .key-del:active { transform: scale(0.92); }
+
+  .pw-error {
+    color: #d32f6f;
+    font-size: 13px;
+    min-height: 20px;
+    animation: shake 0.4s ease;
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%     { transform: translateX(-8px); }
+    40%     { transform: translateX(8px); }
+    60%     { transform: translateX(-6px); }
+    80%     { transform: translateX(6px); }
+  }
+
+  .cute-row {
+    display: flex; justify-content: center; gap: 8px;
+    margin-bottom: 18px;
+    font-size: 22px;
+  }
+
+  /* ── PAGE 3: SUCCESS ── */
+  #page-success {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+    background: linear-gradient(135deg, #fce4ec 0%, #ffd6e7 50%, #ffe4f0 100%);
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .falling-hearts-canvas {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  }
+
+  .success-card {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,150,190,0.45);
+    border-radius: 24px;
+    padding: 48px 40px;
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 1s ease both;
+  }
+
+  .success-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+    color: #c0376e;
+    margin-bottom: 10px;
+  }
+
+  .success-sub {
+    font-family: 'Dancing Script', cursive;
+    font-size: 20px;
+    color: #e0608e;
+    margin-bottom: 20px;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    max-width: 340px;
+    height: 240px;
+    border-radius: 18px;
+    border: 2px dashed rgba(240,100,150,0.5);
+    background: rgba(255,200,225,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: #d06090;
+    font-size: 14px;
+    gap: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .photo-placeholder img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    display: none;
+  }
+
+  .photo-label { font-size: 36px; }
+
+  .success-msg {
+    font-size: 15px;
+    color: #8a4060;
+    line-height: 1.8;
+  }
+</style>
+
+<div id="app">
+
+  <!-- PAGE 1: LOVE -->
+  <div id="page-love">
+    <div class="bg-hearts" id="bg-hearts"></div>
+    <div class="love-card">
+      <span class="love-emoji">💖</span>
+      <div class="love-title">My Kannama 🌸</div>
+      <div class="love-sub">from your Kanna</div>
+      <p class="love-body">
+        You are my everything, my sunshine on cloudy days,<br>
+        my calm in every storm. Every moment with you feels like magic. 🌷<br><br>
+        You are my love, my heart, my whole world, Kannama. 🥰
+      </p>
+      <button class="to-password-btn" onclick="showPage('password')">🔐 Enter our secret space →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 2: PASSWORD -->
+  <div id="page-password">
+    <div class="bg-hearts" id="bg-hearts-pw"></div>
+    <div class="pw-card">
+      <span class="lock-icon">🔒</span>
+      <div class="pw-title">Secret Door, Kannama ✨</div>
+      <div class="cute-row">🌸 💕 🎀 💗 🌷</div>
+      <div class="pw-hint">
+        💡 <strong>Hint:</strong> Your birthday + my birthday + the day we first met 🥺🤍
+      </div>
+      <div class="pw-dots" id="pw-dots">
+        <div class="dot" id="d0"></div>
+        <div class="dot" id="d1"></div>
+        <div class="dot" id="d2"></div>
+        <div class="dot" id="d3"></div>
+        <div class="dot" id="d4"></div>
+        <div class="dot" id="d5"></div>
+      </div>
+      <div class="pw-keypad">
+        <button class="key-btn" onclick="enterDigit('1')">1</button>
+        <button class="key-btn" onclick="enterDigit('2')">2</button>
+        <button class="key-btn" onclick="enterDigit('3')">3</button>
+        <button class="key-btn" onclick="enterDigit('4')">4</button>
+        <button class="key-btn" onclick="enterDigit('5')">5</button>
+        <button class="key-btn" onclick="enterDigit('6')">6</button>
+        <button class="key-btn" onclick="enterDigit('7')">7</button>
+        <button class="key-btn" onclick="enterDigit('8')">8</button>
+        <button class="key-btn" onclick="enterDigit('9')">9</button>
+        <button class="key-del" onclick="clearPw()">✕</button>
+        <button class="key-btn" onclick="enterDigit('0')">0</button>
+        <button class="key-del" onclick="delDigit()">⌫</button>
+      </div>
+      <div class="pw-error" id="pw-error"></div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: SUCCESS -->
+  <div id="page-success">
+    <canvas class="falling-hearts-canvas" id="hearts-canvas"></canvas>
+    <div class="success-card">
+      <div class="success-title">You opened my heart, Kannama 💖</div>
+      <div class="success-sub">forever yours — Kanna 🌸</div>
+      <div class="photo-placeholder" id="photo-box">
+        <img id="the-photo" src="img/chatgpt.png" alt="Our photo" />
+        <span class="photo-label">📸</span>
+        <span>Your photo will appear here</span>
+        <span style="font-size:11px; opacity:0.7;">(add the image later)</span>
+      </div>
+      <div class="success-msg">
+        Every second with you is my favourite second. 🥰<br>
+        You're my home, Kannama. Always and forever. 💕
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const PASSWORD = '180110';
+  let current = '';
+
+  function showPage(page) {
+    document.getElementById('page-love').style.display = 'none';
+    document.getElementById('page-password').style.display = 'none';
+    document.getElementById('page-success').style.display = 'none';
+
+    if (page === 'love') {
+      document.getElementById('page-love').style.display = 'flex';
+    } else if (page === 'password') {
+      document.getElementById('page-password').style.display = 'flex';
+      spawnBgHearts('bg-hearts-pw');
+    } else if (page === 'success') {
+      document.getElementById('page-success').style.display = 'flex';
+      startHearts();
+    }
+  }
+
+  function spawnBgHearts(containerId) {
+    const c = document.getElementById(containerId);
+    if (!c || c.childElementCount > 0) return;
+    const emojis = ['💗','💕','🌸','💖','🌷','💝','🎀'];
+    for (let i = 0; i < 18; i++) {
+      const h = document.createElement('div');
+      h.className = 'bg-heart';
+      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      h.style.left = Math.random() * 100 + '%';
+      h.style.bottom = '-60px';
+      h.style.animationDelay = (Math.random() * 8) + 's';
+      h.style.animationDuration = (6 + Math.random() * 6) + 's';
+      h.style.fontSize = (16 + Math.random() * 22) + 'px';
+      c.appendChild(h);
+    }
+  }
+
+  spawnBgHearts('bg-hearts');
+
+  function updateDots() {
+    for (let i = 0; i < 6; i++) {
+      const d = document.getElementById('d' + i);
+      d.classList.toggle('filled', i < current.length);
+    }
+  }
+
+  function enterDigit(d) {
+    if (current.length >= 6) return;
+    current += d;
+    updateDots();
+    document.getElementById('pw-error').textContent = '';
+    if (current.length === 6) checkPassword();
+  }
+
+  function delDigit() {
+    current = current.slice(0, -1);
+    updateDots();
+    document.getElementById('pw-error').textContent = '';
+  }
+
+  function clearPw() {
+    current = '';
+    updateDots();
+    document.getElementById('pw-error').textContent = '';
+  }
+
+  function checkPassword() {
+    if (current === PASSWORD) {
+      setTimeout(() => showPage('success'), 400);
+    } else {
+      const err = document.getElementById('pw-error');
+      err.textContent = '💔 Try again, Kannama! You know this one 🥺';
+      err.style.animation = 'none';
+      requestAnimationFrame(() => { err.style.animation = 'shake 0.4s ease'; });
+      setTimeout(() => { current = ''; updateDots(); }, 800);
+    }
+  }
+
+  // Falling hearts canvas animation
+  function startHearts() {
+    const canvas = document.getElementById('hearts-canvas');
+    const container = document.getElementById('page-success');
+    canvas.width = container.offsetWidth || 600;
+    canvas.height = container.offsetHeight || 600;
+    const ctx = canvas.getContext('2d');
+
+    const particles = [];
+    const emojis = ['💗','💕','💖','🌸','🌷','💝','🎀','✨'];
+
+    for (let i = 0; i < 45; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: -Math.random() * canvas.height,
+        size: 12 + Math.random() * 22,
+        speed: 0.8 + Math.random() * 1.4,
+        swing: (Math.random() - 0.5) * 1.2,
+        angle: Math.random() * Math.PI * 2,
+        angleSpeed: (Math.random() - 0.5) * 0.04,
+        emoji: emojis[Math.floor(Math.random() * emojis.length)],
+        opacity: 0.6 + Math.random() * 0.4
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        ctx.save();
+        ctx.globalAlpha = p.opacity;
+        ctx.font = p.size + 'px serif';
+        ctx.textAlign = 'center';
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.fillText(p.emoji, 0, 0);
+        ctx.restore();
+
+        p.y += p.speed;
+        p.x += Math.sin(p.y * 0.02) * p.swing;
+        p.angle += p.angleSpeed;
+
+        if (p.y > canvas.height + 40) {
+          p.y = -40;
+          p.x = Math.random() * canvas.width;
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+</script>
